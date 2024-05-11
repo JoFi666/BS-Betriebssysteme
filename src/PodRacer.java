@@ -27,7 +27,7 @@ public class PodRacer {
         return ACCIDENT_SLEEPTIME;
     }
 
-    public void startRace() {
+    public boolean startRace() {
 
         boolean hasAccident = false;
         boolean raceCompleted = true;
@@ -102,16 +102,21 @@ public class PodRacer {
             System.out.println("\nDas Rennen wurde vorzeitig abgebrochen, keine Platzierung möglich.");
         }
         accident.interrupt();
+
+        return raceCompleted;
     }
 
     public static void main(String[] args) {
         int i=0;
-        while(i<3) {
+        float d = 0;
+        while(i<250) {
             PodRacer podRacer = new PodRacer();
-            podRacer.startRace();
+            d += podRacer.startRace() ? 0.0f : 1.0f;
             i++;
         }
 
+        d = d/i;
+        System.out.println(d);
     }
 }
 
