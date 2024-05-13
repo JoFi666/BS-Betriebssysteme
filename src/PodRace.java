@@ -3,28 +3,28 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class PodRacer {
-    private static final int NUM_RACERS = 5; // Anzahl der Fahrer*innen
-    private static final int TRACK_LENGTH = 3; // Länge der Strecke in Runden
-    private static final boolean DEBUG = false;
-    private static final int CRASH_PROBABILITY = 40; // Wahrscheinlichkeit eines Unfalls (in Prozent)
-    private static final int ACCIDENT_SLEEPTIME = 500;
-    private List<Pod> racers = new ArrayList<>();
+public class PodRace {
+    private final int numRacers = 5; // Anzahl der Fahrer*innen
+    private final int trackLength = 3; // Länge der Strecke in Runden
+    private final boolean debug = false;
+    private final int crashProbability = 40; // Wahrscheinlichkeit eines Unfalls (in Prozent)
+    private final int accidentSleeptime = 500;
+    private final List<Pod> racers = new ArrayList<>();
 
     public int getRacerCount() {
-        return NUM_RACERS;
+        return numRacers;
     }
     public int getTrackLength() {
-        return TRACK_LENGTH;
+        return trackLength;
     }
     public boolean isDebug() {
-        return DEBUG;
+        return debug;
     }
     public int getCrashProbability() {
-        return CRASH_PROBABILITY;
+        return crashProbability;
     }
     public int getAccidentSleepTime() {
-        return ACCIDENT_SLEEPTIME;
+        return accidentSleeptime;
     }
 
     public boolean startRace() {
@@ -33,7 +33,7 @@ public class PodRacer {
         boolean raceCompleted = true;
 
         // Pod-Racer Threads erstellen und starten
-        for (int i = 1; i <= NUM_RACERS; i++) {
+        for (int i = 1; i <= numRacers; i++) {
             Pod pod = new Pod(this,"Pod " + i);
             racers.add(pod);
             pod.start();
@@ -46,7 +46,7 @@ public class PodRacer {
                 Random random = new Random();
                 while (!Thread.interrupted()) {
                     if (random.nextInt(100) < getCrashProbability()) {
-                        if(DEBUG) {
+                        if(debug) {
                             System.out.println("Ein Unfall ist passiert! Rennen wird abgebrochen.");
                         }
                         // Stoppe alle laufenden Pod-Racer-Threads
@@ -78,7 +78,7 @@ public class PodRacer {
             }
             //Haben alle Pod das Rennen beendet?
             if (!pod.isFinished()) {
-                if(DEBUG) {
+                if(debug) {
                     System.out.println("Pod " + pod.getName() + " nicht beendet");
                 }
                 raceCompleted = false;
@@ -90,8 +90,8 @@ public class PodRacer {
         if(raceCompleted) {
             Collections.sort(racers);
             System.out.println("\nGesamtergebnistabelle:");
-            System.out.println("Teilnehmer: " + NUM_RACERS + " | Runden:" + TRACK_LENGTH   );
-            for (int i = 0; i < NUM_RACERS; i++) {
+            System.out.println("Teilnehmer: " + numRacers + " | Runden:" + trackLength);
+            for (int i = 0; i < numRacers; i++) {
                 Pod pod = racers.get(i);
                 System.out.println("Platz " + (i + 1) + ": " + pod.getPodName() + " - Gesamtlaufzeit: " + pod.getTotalTime() + " ms");
             }
@@ -109,14 +109,13 @@ public class PodRacer {
     public static void main(String[] args) {
         int i=0;
         float d = 0;
-        while(i<250) {
-            PodRacer podRacer = new PodRacer();
+        while(i<100) {
+            PodRace podRacer = new PodRace();
             d += podRacer.startRace() ? 0.0f : 1.0f;
             i++;
         }
 
-        d = d/i;
-        System.out.println(d);
+
     }
 }
 
