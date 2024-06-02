@@ -1,3 +1,5 @@
+package abgabe02;
+
 import java.util.Random;
 
 class Pod extends Thread implements Comparable<Pod> {
