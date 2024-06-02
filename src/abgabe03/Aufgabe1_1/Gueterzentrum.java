@@ -1,4 +1,4 @@
-package abgabe03;
+package abgabe03.Aufgabe1_1;
 
 import java.util.ArrayList;
 import java.util.Collections;

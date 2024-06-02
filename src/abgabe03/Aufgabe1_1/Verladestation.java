@@ -1,6 +1,5 @@
-package abgabe03;
+package abgabe03.Aufgabe1_1;
 
-import java.util.Comparator;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
